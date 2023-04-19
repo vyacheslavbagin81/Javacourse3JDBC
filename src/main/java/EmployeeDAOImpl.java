@@ -12,7 +12,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         try (final Connection connection =
                      DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO employee (first_name, last_name, gender, age, citi_id) VALUES ('Василий', 'Васильев', 'муж', 65, 4)");
-            statement.executeUpdate();
+            statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
