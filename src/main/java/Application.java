@@ -1,24 +1,21 @@
-
 public class Application {
     public static void main(String[] args) {
-
         EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-        employeeDAO.getAllEmployee().forEach(System.out::println);
-        System.out.println();
 
-        employeeDAO.updateEmployee(6);
+        Employee employee1 = new Employee("Василий", "Маврин", "муж", 60, 3);
+        Employee employee2 = new Employee("Олег", "Зуев", "муж", 45, 2);
+        Employee employee3 = new Employee("Корней", "Жуков", "муж", 34, 1);
 
-        System.out.println(employeeDAO.getEmployeeById(6));
-        System.out.println();
+        employeeDAO.getAllEmployee();
 
-        employeeDAO.deleteEmployee(7);
+        employeeDAO.createEmloyee(employee1);
 
-        employeeDAO.getAllEmployee().forEach(System.out::println);
-        System.out.println();
+        employeeDAO.getEmployeeById(5);
 
-        employeeDAO.createEmloyee();
+        employeeDAO.updateEmployee(employee2, 5);
 
-        employeeDAO.getAllEmployee().forEach(System.out::println);
-        System.out.println();
+        employeeDAO.deleteEmployee(13);
     }
+
+
 }

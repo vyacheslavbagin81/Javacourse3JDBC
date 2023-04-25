@@ -1,20 +1,32 @@
-public class Employee {
-    private int id;
-    private String first_name;
-    private String last_name;
-    private String gender;
-    private int age;
-    private int citi_id;
-    private String citi_name;
+import javax.persistence.*;
 
-    public Employee(int id, String first_name, String last_name, String gender, int age, int citi_id, String citi_name) {
-        this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+@Entity
+@Table(name = "employee")
+public class Employee {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+   @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "age")
+    private int age;
+    @Column(name = "citi_id")
+    private int citiId;
+
+    public Employee() {
+    }
+
+    public Employee(String first_name, String last_name, String gender, int age, int citi_id) {
+        this.firstName = first_name;
+        this.lastName = last_name;
         this.gender = gender;
         this.age = age;
-        this.citi_id = citi_id;
-        this.citi_name = citi_name;
+        this.citiId = citi_id;
     }
 
     public int getId() {
@@ -25,20 +37,20 @@ public class Employee {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 
     public String getGender() {
@@ -57,31 +69,23 @@ public class Employee {
         this.age = age;
     }
 
-    public int getCiti_id() {
-        return citi_id;
+    public int getCitiId() {
+        return citiId;
     }
 
-    public void setCiti_id(int citi_id) {
-        this.citi_id = citi_id;
+    public void setCitiId(int citi_id) {
+        this.citiId = citi_id;
     }
 
-    public String getCiti_name() {
-        return citi_name;
-    }
-
-    public void setCiti_name(String citi_name) {
-        this.citi_name = citi_name;
-    }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", first_name='" + firstName + '\'' +
+                ", last_name='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
-                ", citi_name=" + citi_name +
                 '}';
     }
 }
