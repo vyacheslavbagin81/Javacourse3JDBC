@@ -1,36 +1,21 @@
-import java.sql.*;
-
 public class Application {
     public static void main(String[] args) {
+        EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
-        final String user = "postgres";
-        final String password = "postgres";
-        final String url = "jdbc:postgresql://localhost:5432/skypro";
-        try (final Connection connection =
-                     DriverManager.getConnection(url, user, password);
-             PreparedStatement statement =
-                     connection.prepareStatement("SELECT * FROM employee FULL JOIN citi ON employee.citi_id = citi.citi_id")) {
+        Employee employee1 = new Employee("Василий", "Маврин", "муж", 60, 3);
+        Employee employee2 = new Employee("Олег", "Зуев", "муж", 45, 2);
+        Employee employee3 = new Employee("Корней", "Жуков", "муж", 34, 1);
 
-            ResultSet resultSet = statement.executeQuery();
+        employeeDAO.getAllEmployee();
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                if (id == 4) {
-                    String first_name = resultSet.getString("first_name");
-                    String last_name = resultSet.getString("last_name");
-                    String gender = resultSet.getString("gender");
-                    String citi_name = resultSet.getString("citi_name");
+        employeeDAO.createEmloyee(employee1);
 
-                    System.out.println("ФИО: " + first_name + " " + last_name);
-                    System.out.println("пол: " + gender);
-                    System.out.println("город проживания: " + citi_name);
-                    break;
-                }
-            }
+        employeeDAO.getEmployeeById(5);
 
-        } catch (SQLException e) {
-            System.out.println("Ошибка при подключении к базе данных!");
-            e.printStackTrace();
-        }
+        employeeDAO.updateEmployee(employee2, 5);
+
+        employeeDAO.deleteEmployee(13);
     }
+
+
 }
