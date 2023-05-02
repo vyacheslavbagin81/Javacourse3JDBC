@@ -1,20 +1,33 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Application {
     public static void main(String[] args) {
         EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+        CitiDAOImpl citiDAO = new CitiDAOImpl();
 
         Employee employee1 = new Employee("Василий", "Маврин", "муж", 60, 3);
         Employee employee2 = new Employee("Олег", "Зуев", "муж", 45, 2);
-        Employee employee3 = new Employee("Корней", "Жуков", "муж", 34, 1);
+        Employee employee3 = new Employee("Корней", "Жуков", "муж", 24, 1);
 
-        employeeDAO.getAllEmployee();
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee1);
+        employees.add(employee2);
+        employees.add(employee3);
 
-        employeeDAO.createEmloyee(employee1);
+        Citi citi = new Citi("Voronej", employees);
 
-        employeeDAO.getEmployeeById(5);
+        citiDAO.createCiti(citi);
 
-        employeeDAO.updateEmployee(employee2, 5);
-
-        employeeDAO.deleteEmployee(13);
+//        employeeDAO.getAllEmployee();
+//
+//        citiDAO.createCiti(city);
+//
+//        employeeDAO.getEmployeeById(5);
+//
+//        employeeDAO.updateEmployee(employee2, 5);
+//
+//        employeeDAO.deleteEmployee(13);
     }
 
 

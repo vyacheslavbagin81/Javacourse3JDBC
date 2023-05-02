@@ -2,57 +2,54 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
+public class CitiDAOImpl <T extends Citi> implements CitiDAO {
 
     @Override
-    public void createEmloyee(Object employee) {
+    public void createCiti(Citi citi) {
         EntityManager entityManager = readPersistent();
-        entityManager.persist(employee);
+        entityManager.persist(citi);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public Employee getEmployeeById(int id) {
+    public Citi getCitiById(int id) {
         EntityManager entityManager = readPersistent();
-        Employee employee = entityManager.find(Employee.class, id);
+        Citi citi = entityManager.find(Citi.class, id);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return employee;
+        return citi;
     }
 
     @Override
-    public List<Employee> getAllEmployee() {
+    public List<Citi> getAllCiti() {
         EntityManager entityManager = readPersistent();
         String s = "SELECT e FROM Employee e";
-        TypedQuery<Employee> query = entityManager.createQuery(s, Employee.class);
-        List<Employee> employees = query.getResultList();
+        TypedQuery<Citi> query = entityManager.createQuery(s, Citi.class);
+        List<Citi> cities = query.getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
-        return employees;
+        return cities;
     }
 
     @Override
-    public void updateEmployee(Employee employee, int id) {
+    public void updateCiti(Citi citi, int id) {
         EntityManager entityManager = readPersistent();
-        employee.setId(id);
-        entityManager.merge(employee);
+        citi.setCitiId(id);
+        entityManager.merge(citi);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public void deleteEmployee(int id) {
+    public void deleteCiti(int id) {
         EntityManager entityManager = readPersistent();
-        entityManager.remove(entityManager.find(Employee.class, id));
+        entityManager.remove(entityManager.find(Citi.class, id));
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-
     static EntityManager readPersistent() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
