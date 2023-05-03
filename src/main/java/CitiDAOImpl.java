@@ -9,8 +9,9 @@ public class CitiDAOImpl <T extends Citi> implements CitiDAO {
     @Override
     public void createCiti(Citi citi) {
         EntityManager entityManager = readPersistent();
-        entityManager.persist(citi);
+        Citi citiNew = entityManager.merge(citi);
         entityManager.getTransaction().commit();
+        citi.setCitiId(citiNew.getCitiId());
         entityManager.close();
     }
 
@@ -35,9 +36,8 @@ public class CitiDAOImpl <T extends Citi> implements CitiDAO {
     }
 
     @Override
-    public void updateCiti(Citi citi, int id) {
+    public void updateCiti(Citi citi) {
         EntityManager entityManager = readPersistent();
-        citi.setCitiId(id);
         entityManager.merge(citi);
         entityManager.getTransaction().commit();
         entityManager.close();

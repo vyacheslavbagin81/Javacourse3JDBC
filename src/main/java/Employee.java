@@ -7,8 +7,10 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class Employee {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,21 +24,11 @@ public class Employee {
     private String gender;
     @Column(name = "age")
     private int age;
-    @Column(name = "citi_id")
-    private int citiId;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    /* применяем FetchType.EAGER так как само по себе перечесление
-     * городов без привязки к работникам вряд ли будет необходимо
-     * (можно было явно не указывать так как fetch в ManyToOne по умолчанию EAGER) */
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /* применяем FetchType.LAZY так как перечесление
+     * работников без городов может быть необходимо
+     * а города подгружаются по необходимости */
     @JoinColumn (name = "citi_id")
-    private Citi citi;
+    private Citi citiName;
 
-
-    public Employee(String first_name, String last_name, String gender, int age, int citi_id) {
-        this.firstName = first_name;
-        this.lastName = last_name;
-        this.gender = gender;
-        this.age = age;
-        this.citiId = citi_id;
-    }
 }

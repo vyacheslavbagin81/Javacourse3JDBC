@@ -8,8 +8,10 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "citiId")
 public class Citi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +19,9 @@ public class Citi {
     private int citiId;
     @Column(name = "citi_name")
     private String citiName;
-    @OneToMany(mappedBy = "citi", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    /* используем FetchType.LAZY что бы не делать неныжные загрузки,
-    * так как нас могут интересовать выборки работников без указания места проживания
-    * (можно было явно не указывать так как fetch в OneToMany по умолчанию LAZY)*/
-    private List<Employee> employee;
-
-
-    public Citi(String citiName, List<Employee> employee) {
-        this.citiName = citiName;
-        this.employee = employee;
-    }
+    @OneToMany(mappedBy = "citiName", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    /* применяем FetchType.EAGER так как перечесление
+     * городов без работников вряд ли может быть необходимо
+     * (по составу базы данных на этот момент) */
+    List<Employee> employees;
 }

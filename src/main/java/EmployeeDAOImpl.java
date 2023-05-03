@@ -9,10 +9,11 @@ import java.util.List;
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
-    public void createEmloyee(Object employee) {
+    public void createEmloyee(Employee employee) {
         EntityManager entityManager = readPersistent();
-        entityManager.persist(employee);
+        Employee employee1 = entityManager.merge(employee);
         entityManager.getTransaction().commit();
+        employee.setId(employee1.getId());
         entityManager.close();
     }
 
@@ -37,9 +38,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void updateEmployee(Employee employee, int id) {
+    public void updateEmployee(Employee employee) {
         EntityManager entityManager = readPersistent();
-        employee.setId(id);
         entityManager.merge(employee);
         entityManager.getTransaction().commit();
         entityManager.close();

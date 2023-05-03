@@ -7,7 +7,7 @@ public interface CitiDAO  <T> {
 
     List<Citi> getAllCiti();
 
-    void updateCiti(Citi citi, int id);
+    void updateCiti(Citi citi);
 
     void deleteCiti(int id);
 }
