@@ -1,21 +1,42 @@
+import java.util.List;
+
 public class Application {
     public static void main(String[] args) {
         EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+        CitiDAOImpl citiDAO = new CitiDAOImpl();
 
-        Employee employee1 = new Employee("Василий", "Маврин", "муж", 60, 3);
-        Employee employee2 = new Employee("Олег", "Зуев", "муж", 45, 2);
-        Employee employee3 = new Employee("Корней", "Жуков", "муж", 34, 1);
+        Citi citi = Citi.builder().citiName("Томбов").build();
 
-        employeeDAO.getAllEmployee();
 
-        employeeDAO.createEmloyee(employee1);
+        Employee employee1 = Employee.builder().
+                firstName("Василий").
+                lastName("Маврин").
+                gender("муж").
+                age(60).
+                citiName(citi).
+                build();
+        Employee employee2 = Employee.builder().
+                firstName("Олег").
+                lastName("Зуев").
+                gender("муж").
+                age(45).
+                citiName(citi).
+                build();
+        Employee employee3 = Employee.builder().
+                firstName("Корней").
+                lastName("Жуков").
+                gender("муж").
+                age(24).
+                citiName(citi).
+                build();
 
-        employeeDAO.getEmployeeById(5);
+        citi.setEmployees(List.of(employee1, employee2, employee3));
 
-        employeeDAO.updateEmployee(employee2, 5);
+        citiDAO.createCiti(citi);
 
-        employeeDAO.deleteEmployee(13);
+        citi.getEmployees().get(1).setFirstName("TesT");
+        citiDAO.updateCiti(citi);
+
+        citiDAO.deleteCiti(1);
     }
-
-
 }

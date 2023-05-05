@@ -1,7 +1,16 @@
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "employee")
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+@EqualsAndHashCode(of = "id")
 public class Employee {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,77 +24,11 @@ public class Employee {
     private String gender;
     @Column(name = "age")
     private int age;
-    @Column(name = "citi_id")
-    private int citiId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /* применяем FetchType.LAZY так как перечесление
+     * работников без городов может быть необходимо
+     * а города подгружаются по необходимости */
+    @JoinColumn (name = "citi_id")
+    private Citi citiName;
 
-    public Employee() {
-    }
-
-    public Employee(String first_name, String last_name, String gender, int age, int citi_id) {
-        this.firstName = first_name;
-        this.lastName = last_name;
-        this.gender = gender;
-        this.age = age;
-        this.citiId = citi_id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String first_name) {
-        this.firstName = first_name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String last_name) {
-        this.lastName = last_name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getCitiId() {
-        return citiId;
-    }
-
-    public void setCitiId(int citi_id) {
-        this.citiId = citi_id;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", first_name='" + firstName + '\'' +
-                ", last_name='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }
